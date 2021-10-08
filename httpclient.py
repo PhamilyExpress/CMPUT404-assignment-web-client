@@ -44,7 +44,7 @@ class HTTPClient(object):
 
     def get_code(self, data):
         split_code = data.split(" ")
-        return split_code[1]
+        return int(split_code[1])
 
     def get_headers(self, data):
         return None
@@ -91,15 +91,15 @@ class HTTPClient(object):
         body = self.get_body(data)
 
         self.close()
-        return HTTPResponse(int(code), body)
+        return HTTPResponse(code, body)
 
     def POST(self, url, args=None):
         path, host, port = self.get_host_port(url)
         path, port = self.check_path_port(path, port)
         self.connect(host, port)
 
-        request = "POST " + path + " HTTP/1.1\r\nHost: " + host + "\r\nContent-Length: "
-        content_type = "\r\nContent-Type: application/x-www-form-urlencoded\r\nConnection: Closed\r\n\r\n"
+        request = "POST " + path + " HTTP/1.1\r\nHost: " + host + "\r\nConnection: Closed\r\nContent-Length: "
+        content_type = "\r\nContent-Type: application/x-www-form-urlencoded\r\n\r\n"
 
         if args:
             encode = urllib.parse.urlencode(args)
@@ -114,7 +114,7 @@ class HTTPClient(object):
         body = self.get_body(data)
 
         self.close()
-        return HTTPResponse(int(code), body)
+        return HTTPResponse(code, body)
 
     def command(self, url, command="GET", args=None):
         if (command == "POST"):
