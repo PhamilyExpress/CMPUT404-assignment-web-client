@@ -86,9 +86,9 @@ class HTTPClient(object):
         request = "GET " + path + " HTTP/1.1\r\nHOST: " + host + "\r\nConnection: Closed\r\n\r\n"
         self.sendall(request)
 
-        data = self.recvall(self.socket)
-        code = self.get_code(data)
-        body = self.get_body(data)
+        resp = self.recvall(self.socket)
+        code = self.get_code(resp)
+        body = self.get_body(resp)
 
         self.close()
         return HTTPResponse(code, body)
@@ -109,9 +109,9 @@ class HTTPClient(object):
 
         self.sendall(request)
 
-        data = self.recvall(self.socket)
-        code = self.get_code(data)
-        body = self.get_body(data)
+        resp = self.recvall(self.socket)
+        code = self.get_code(resp)
+        body = self.get_body(resp)
 
         self.close()
         return HTTPResponse(code, body)
